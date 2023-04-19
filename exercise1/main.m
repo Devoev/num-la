@@ -1,3 +1,5 @@
+% Devin Balian 2791430
+
 clear all;
 
 N = 15;
@@ -24,7 +26,13 @@ for n = 1:N
     cond(n) = norm(H)*norm(Hinv);
 end
 
+% Calculate a for cond(n) = exp(an)
+a = mean(diff(log(cond)))
+c = exp((1:N) * a) / exp(a);
+
+% Plot resuts
 semilogy(e)
 hold on
 semilogy(cond)
-legend("e_x/e_b", "cond")
+semilogy(c)
+legend("e_x/e_b", "cond(H)", "c(n)")
