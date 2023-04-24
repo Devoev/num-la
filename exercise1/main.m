@@ -8,7 +8,6 @@ e = zeros(N, 1); % ratio of e_x and e_b
 cond = zeros(N, 1); % condition number of hilbert matrix
 
 for n = 1:N
-
     % Hilbert matrix
     H = hilb(n);
     Hinv = invhilb(n);
@@ -30,7 +29,8 @@ end
 
 % Calculate mean value of a (=alpha) for cond(n) = exp(an)*exp(-1) = exp(an-a)
 a = mean(diff(log(cond)));
-c = exp((1:N) * a - a);
+c = exp((1:N) * a);
+% c = c / exp(a); % optional y-axis shift
 
 % Plot resuts
 semilogy(e)
