@@ -37,4 +37,5 @@ semilogy(e)
 hold on
 semilogy(cond)
 semilogy(c)
+xlabel("n")
 legend("e_x/e_b", "cond(H)", "c(n)")
