@@ -24,10 +24,10 @@ e_lambda = abs(lambda2 - lambda);
 e_vec = arrayfun(@(k) min( norm(x2 - x(:,k), Inf) , norm(x2 + x(:,k), Inf) ), k_range);
 
 % Additional lines
-c1 = power(abs((lambda2 - mu) / (lambda3 - mu)), 2*k_range);
-c2 = power(abs((lambda2 - mu) / (lambda1 - mu)), 2*k_range);
-c3 = power(abs((lambda2 - mu) / (lambda3 - mu)), k_range);
-c4 = power(abs((lambda2 - mu) / (lambda1 - mu)), k_range);
+c1 = abs( (lambda2 - mu) / (lambda3 - mu) ).^(2*k_range);
+c2 = abs( (lambda2 - mu) / (lambda1 - mu) ).^(2*k_range);
+c3 = abs( (lambda2 - mu) / (lambda3 - mu) ).^(k_range);
+c4 = abs( (lambda2 - mu) / (lambda1 - mu) ).^(k_range);
 
 % Plot errors
 semilogy(k_range, e_lambda,...
@@ -36,7 +36,11 @@ semilogy(k_range, e_lambda,...
     k_range, c2, "--",...
     k_range, c3, "--",...
     k_range, c4, "--")
-xlabel("Iteration k")
-title("Inverse vector iteration convergence analysis")
-legend("Absolute error (2nd eigenvalue)", "Inf norm error (2nd eigenvector)", "c1(k)", "c2(k)", "c3(k)", "c4(k)")
+xlabel('Iteration $k$','Interpreter','latex')
+title('Inverse vector iteration convergence analysis','Interpreter','latex')
+legend('$|\lambda^{(2)} - \lambda_k|$',...
+    '$\min{ ||x^{(2)} \pm x_k||_\infty }$',...
+    '$c_1(k)$', '$c_2(k)$', '$c_3(k)$', '$c_4(k)$',...
+    'Interpreter','latex')
+
 grid on
