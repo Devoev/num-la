@@ -27,6 +27,7 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax)
         end
 
         [Q, R]= qr_givens(H - sigma*eye(n));
+%        [Q, R]= qr(H - sigma*eye(n));
         H = R*Q + sigma*eye(n);
         H_iter(:,:,k) = H;
     end
