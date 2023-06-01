@@ -27,7 +27,9 @@ D = diag(1:N);
 A = Q*D*Q';
 
 ev = 1:N;
+tic
 [~, iter_none] = qr_algorithm(A, 'none', kmax);
+toc
 [~, iter_naive] = qr_algorithm(A, 'naive', kmax);
 [~, iter_wilkinson] = qr_algorithm(A, 'wilkinson', kmax);
 

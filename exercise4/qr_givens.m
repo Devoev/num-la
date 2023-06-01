@@ -12,7 +12,7 @@ function [Q, R] = qr_givens(A)
             end
             G = givens(j, i, R(j,j), R(i,j), n);
             R = G*R;
-            Q = Q * G';
+            Q = Q*G';
         end
     end
 
