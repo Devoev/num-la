@@ -1,6 +1,9 @@
-% Devin Balian 2791430
+function [ev] = qr_algorithm(A, shift, kmax)
+% QR_ALGORITHM Caluclates the eigenvalues of A using the QR algorithm.
+% Inputs:
+%   shift - The shift technique. Use 'none', 'naive' or 'wilkinson'.
+%   kmax  - The maximum amount of iterations.
 
-function [ev] = qralgorithm(A, shift, kmax)
     % Transformation to hessenberg form
     H = hess(A);
     [n,~] = size(H);
@@ -16,7 +19,7 @@ function [ev] = qralgorithm(A, shift, kmax)
             d = (H(n-1,n-1) - H(n,n)) / 2;
             sigma = H(n,n) + d - sign(d)*sqrt(d^2 + H(n-1,n)^2);
         else
-            error("Unsupported shift routine. Use 'none', 'naive' or 'wilkinson'.");
+            error("Unsupported shift technique. Use 'none', 'naive' or 'wilkinson'.");
         end
 
         [Q, R]= qr(H - sigma*eye(n));
@@ -26,3 +29,5 @@ function [ev] = qralgorithm(A, shift, kmax)
     % Get diagonal elements of A
     ev = diag(H);
 end
+
+% Devin Balian 2791430
