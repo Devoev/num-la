@@ -6,10 +6,6 @@ A = [1, 2;
     2, 3];
 kmax = 2;
 
-M = magic(5)
-G = givens(M, 1, 2, 2)
-G * M
-
 ev_num = qr_algorithm(A, 'wilkinson', kmax);
 ev_exact = eig(A);
 

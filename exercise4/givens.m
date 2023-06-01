@@ -1,10 +1,11 @@
-function [G] = givens(A, p, q, j)
-% GIVENS Calculates the givens matrix for A that sets the element A(q,j) to zero.
+function [G] = givens(p, q, xp, xq, n)
+% GIVENS Calculates a givens matrix of size n.
+% Inputs:
+%   p, q   - Rows and columns effected by the givens matrix.
+%   xp, xq - Values of the matrix that should be applied to the givens matrix.
+%   n      - Size of the matrix.
 
-    [n, ~] = size(A);
     G = eye(n);
-    xp = A(p,j);
-    xq = A(q,j);
     r = sqrt(xp^2 + xq^2);
     c = xp/r;
     s = xq/r;
