@@ -5,16 +5,18 @@ function [G] = givens(p, q, xp, xq, n)
 %   xp, xq - Values of the matrix that should be applied to the givens matrix.
 %   n      - Size of the matrix.
 % Outputs:
-%   G      - The assembled givens matrix.
+%   G      - The assembled (sparse) givens matrix.
 
-    G = eye(n);
+    % Determine r, c and s
     r = sqrt(xp^2 + xq^2);
     c = xp/r;
     s = xq/r;
-    G(p,p) = c;
-    G(q,q) = c;
-    G(p,q) = s;
-    G(q,p) = -s;
+
+    % Assamble sparse matrix
+    i = [p, p, q, q];
+    j = [p, q, p, q];
+    v = [c - 1, s, -s, c - 1]; % Use c-1, because the c's are on the diagonal
+    G = speye(n) + sparse(i, j, v, n, n);
 end
 
 % Devin Balian 2791430
