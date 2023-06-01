@@ -22,7 +22,7 @@ function [ev] = qr_algorithm(A, shift, kmax)
             error("Unsupported shift technique. Use 'none', 'naive' or 'wilkinson'.");
         end
 
-        [Q, R]= qr(H - sigma*eye(n));
+        [Q, R]= qr_givens(H - sigma*eye(n));
         H = R*Q + sigma*eye(n);
     end
 
