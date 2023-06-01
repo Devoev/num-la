@@ -1,12 +1,16 @@
-function [ev] = qr_algorithm(A, shift, kmax)
+function [ev, H_iter] = qr_algorithm(A, shift, kmax)
 % QR_ALGORITHM Caluclates the eigenvalues of A using the QR algorithm.
 % Inputs:
-%   shift - The shift technique. Use 'none', 'naive' or 'wilkinson'.
-%   kmax  - The maximum amount of iterations.
+%   shift  - The shift technique. Use 'none', 'naive' or 'wilkinson'.
+%   kmax   - The maximum amount of iterations.
+% Outputs:
+%   ev     - Array of approximated eigenvalues of A.
+%   H_iter - The iteration of matrices.
 
     % Transformation to hessenberg form
+    [n,~] = size(A);
     H = hess(A);
-    [n,~] = size(H);
+    H_iter = zeros(n, n, kmax);
 
     % QR Iteration
     for k = 1:kmax
@@ -24,6 +28,7 @@ function [ev] = qr_algorithm(A, shift, kmax)
 
         [Q, R]= qr_givens(H - sigma*eye(n));
         H = R*Q + sigma*eye(n);
+        H_iter(:,:,k) = H;
     end
 
     % Get diagonal elements of A
