@@ -41,10 +41,11 @@ for k = 1:kmax
     error_wilkinson(k) = norm(sort(ev) - sort(diag(iter_wilkinson(:,:,k)))', 1);
 end
 
-semilogy(1:kmax, error_none)
+semilogy(1:kmax, error_none, "g-")
 hold on
-semilogy(1:kmax, error_naive)
-semilogy(1:kmax, error_wilkinson)
+grid on
+semilogy(1:kmax, error_naive, "r--")
+semilogy(1:kmax, error_wilkinson, "b-.")
 legend("No shift", "Naive shift", "Wilkinson shift")
 xlabel('Iteration number $k$', 'Interpreter', 'Latex')
 ylabel('Absolute error $e_k = || \lambda - \lambda^k ||_1$', 'Interpreter', 'Latex')
