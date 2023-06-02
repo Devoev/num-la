@@ -1,5 +1,11 @@
-function [Q, R] = qr_givens(A)
+function [Q, R] = qr_givens(A, tol)
 % QR_GIVENS Calculates the QR decomposition of A using givens rotations.
+% Inputs:
+%   A   - The matrix to decompose.
+%   tol - Tolerance to check if elements are zero.
+% Outputs:
+%   Q   - The orthonorgal matrix.
+%   R   - The upper triangular matrix.
 
     [n,~] = size(A);
     Q = eye(n);
@@ -7,7 +13,7 @@ function [Q, R] = qr_givens(A)
 
     for i = 1:n
         for j = 1:i-1
-            if R(i,j) == 0
+            if abs(R(i,j)) < tol
                 continue
             end
             G = givens(j, i, R(j,j), R(i,j), n);

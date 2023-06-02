@@ -5,10 +5,11 @@ clear all;
 A = [1, 2;
     2, 3];
 kmax = 2;
+tol = 1e-10;
 
-ev_none = qr_algorithm(A, 'none', kmax);
-ev_naive = qr_algorithm(A, 'naive', kmax);
-ev_wilkinson = qr_algorithm(A, 'wilkinson', kmax);
+ev_none = qr_algorithm(A, 'none', kmax, tol);
+ev_naive = qr_algorithm(A, 'naive', kmax, tol);
+ev_wilkinson = qr_algorithm(A, 'wilkinson', kmax, tol);
 ev = eig(A);
 
 error_none = norm(sort(ev_none) - sort(ev)) / norm(ev);
@@ -21,17 +22,17 @@ disp("Error with wilkinson shift: " + error_wilkinson)
 
 %% Exercise b)
 kmax = 200;
-N = 50;
+N = 10;
 D = diag(1:N);
 [Q,~] = qr(2*rand(N,N) - ones(N,N));
 A = Q*D*Q';
 
 ev = 1:N;
 tic
-[~, iter_none] = qr_algorithm(A, 'none', kmax);
+[~, iter_none] = qr_algorithm(A, 'none', kmax, tol);
 toc
-[~, iter_naive] = qr_algorithm(A, 'naive', kmax);
-[~, iter_wilkinson] = qr_algorithm(A, 'wilkinson', kmax);
+[~, iter_naive] = qr_algorithm(A, 'naive', kmax, tol);
+[~, iter_wilkinson] = qr_algorithm(A, 'wilkinson', kmax, tol);
 
 % Calculate errors
 error_none = zeros(kmax, 1);

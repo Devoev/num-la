@@ -1,8 +1,9 @@
-function [ev, H_iter] = qr_algorithm(A, shift, kmax)
+function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol)
 % QR_ALGORITHM Caluclates the eigenvalues of A using the QR algorithm.
 % Inputs:
 %   shift  - The shift technique. Use 'none', 'naive' or 'wilkinson'.
 %   kmax   - The maximum amount of iterations.
+%   tol    - Tolerance value.
 % Outputs:
 %   ev     - Array of approximated eigenvalues of A.
 %   H_iter - The iteration of matrices.
@@ -26,7 +27,7 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax)
             error("Unsupported shift technique. Use 'none', 'naive' or 'wilkinson'.");
         end
 
-        [Q, R]= qr_givens(H - sigma*eye(n));
+        [Q, R]= qr_givens(H - sigma*eye(n), tol);
 %        [Q, R]= qr(H - sigma*eye(n));
         H = R*Q + sigma*eye(n);
         H_iter(:,:,k) = H;
