@@ -1,12 +1,13 @@
-function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol)
+function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol, issymmetric)
 % QR_ALGORITHM Caluclates the eigenvalues of A using the QR algorithm.
 % Inputs:
-%   shift  - The shift technique. Use 'none', 'naive' or 'wilkinson'.
-%   kmax   - The maximum amount of iterations.
-%   tol    - Tolerance value.
+%   shift       - The shift technique. Use 'none', 'naive' or 'wilkinson'.
+%   kmax        - The maximum amount of iterations.
+%   tol         - Tolerance value.
+%   issymmetric - Whether A is symmetric and real valued.
 % Outputs:
-%   ev     - Array of approximated eigenvalues of A.
-%   H_iter - The iteration of matrices.
+%   ev          - Array of approximated eigenvalues of A.
+%   H_iter      - The iteration of matrices.
 
     % Transformation to hessenberg form
     [n,~] = size(A);
@@ -27,7 +28,7 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol)
             error("Unsupported shift technique. Use 'none', 'naive' or 'wilkinson'.");
         end
 
-        [Q, R]= qr_givens(H - sigma*eye(n), tol);
+        [Q, R]= qr_givens(H - sigma*eye(n), tol, issymmetric);
 %        [Q, R]= qr(H - sigma*eye(n));
         H = R*Q + sigma*eye(n);
         H_iter(:,:,k) = H;
