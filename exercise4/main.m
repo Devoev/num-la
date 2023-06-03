@@ -22,7 +22,7 @@ disp("Error with wilkinson shift: " + error_wilkinson)
 
 %% Exercise b)
 kmax = 200;
-N = 10;
+N = 100;
 D = diag(1:N);
 [Q,~] = qr(2*rand(N,N) - ones(N,N));
 A = Q*D*Q';
