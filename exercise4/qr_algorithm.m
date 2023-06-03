@@ -35,7 +35,7 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol, deflation)
         end
 
         % Deflation
-        if issymmetric
+        if deflation
             lower_diag = diag(H, -1);
             idx = abs(lower_diag) < tol;
             idx = nonzeros(double(idx)' .* (1:n-1)); % Find all zero indices on lower diagonal
