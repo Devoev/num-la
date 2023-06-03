@@ -18,19 +18,20 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol, deflation)
     % Transformation to hessenberg form
     [n,~] = size(A);
     H = hess(A);
-%    H = sparse(H - triu(H, 2));
+%    H = spdiags(spdiags(H, -1:1), -1:1, n, n);
+%    H = full(H);
     H_iter = zeros(n, n, kmax);
 
     % QR Iteration
     for k = 1:kmax
-        % Calculate shift sigma
+        % Calculate shift s
         if strcmp(shift, 'none')
-            sigma = 0;
+            s = 0;
         elseif strcmp(shift, 'naive')
-            sigma = H(n, n);
+            s = H(n,n);
         elseif strcmp(shift, 'wilkinson')
             d = (H(n-1,n-1) - H(n,n)) / 2;
-            sigma = H(n,n) + d - sign(d)*sqrt(d^2 + H(n-1,n)^2);
+            s = H(n,n) + d - sign(d)*sqrt(d^2 + H(n-1,n)^2);
         else
             error("Unsupported shift technique. Use 'none', 'naive' or 'wilkinson'.");
         end
@@ -53,9 +54,9 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol, deflation)
             end
         end
 
-        [Q, R]= qr_givens(H - sigma*speye(n), tol, deflation);
-%        [Q, R]= qr(H - sigma*eye(n));
-        H = R*Q + sigma*eye(n);
+%        [Q, R]= qr_givens(H - s*eye(n), tol, deflation);
+        [Q, R]= qr(H - s*eye(n));
+        H = R*Q + s*eye(n);
         H_iter(:,:,k) = H;
     end
 
