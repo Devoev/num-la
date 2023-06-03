@@ -18,6 +18,7 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol, deflation)
     % Transformation to hessenberg form
     [n,~] = size(A);
     H = hess(A);
+%    H = sparse(H - triu(H, 2));
     H_iter = zeros(n, n, kmax);
 
     % QR Iteration
@@ -52,8 +53,8 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol, deflation)
             end
         end
 
-%        [Q, R]= qr_givens(H - sigma*eye(n), tol, deflation);
-        [Q, R]= qr(H - sigma*eye(n));
+        [Q, R]= qr_givens(H - sigma*speye(n), tol, deflation);
+%        [Q, R]= qr(H - sigma*eye(n));
         H = R*Q + sigma*eye(n);
         H_iter(:,:,k) = H;
     end
