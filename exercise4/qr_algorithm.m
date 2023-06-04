@@ -1,4 +1,4 @@
-function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol, deflation)
+function [ev, iter] = qr_algorithm(A, shift, kmax, tol, deflation)
 % QR_ALGORITHM Caluclates the eigenvalues of A using the QR algorithm.
 % Inputs:
 %   shift     - The shift technique. Use 'none', 'naive' or 'wilkinson'.
@@ -7,7 +7,7 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol, deflation)
 %   deflation - Whether to apply deflation (only works on real symmetric matrices).
 % Outputs:
 %   ev        - Array of approximated eigenvalues of A.
-%   H_iter    - The iteration of matrices.
+%   iter      - The iteration of apprxoimated eigenvalues.
 
     % Test if A is a scalar
     if isscalar(A)
@@ -20,7 +20,7 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol, deflation)
     H = hess(A);
 %    H = spdiags(spdiags(H, -1:1), -1:1, n, n);
 %    H = full(H);
-    H_iter = zeros(n, n, kmax);
+    iter = zeros(n, kmax);
 
     % QR Iteration
     for k = 1:kmax
@@ -57,10 +57,10 @@ function [ev, H_iter] = qr_algorithm(A, shift, kmax, tol, deflation)
 %        [Q, R]= qr_givens(H - s*eye(n), tol, deflation);
         [Q, R]= qr(H - s*eye(n));
         H = R*Q + s*eye(n);
-        H_iter(:,:,k) = H;
+        iter(:,k) = diag(H);
     end
 
-    % Get diagonal elements of A
+    % Get eigenvalues elements of last iteration
     ev = diag(H);
 end
 

@@ -18,9 +18,9 @@ error_none = zeros(kmax, 1);
 error_naive = zeros(kmax, 1);
 error_wilkinson = zeros(kmax, 1);
 for k = 1:kmax
-    error_none(k) = norm(sort(ev) - sort(diag(iter_none(:,:,k))), 1);
-    error_naive(k) = norm(sort(ev) - sort(diag(iter_naive(:,:,k))), 1);
-    error_wilkinson(k) = norm(sort(ev) - sort(diag(iter_wilkinson(:,:,k))), 1);
+    error_none(k) = norm(sort(ev) - sort(iter_none(:,k)), 1);
+    error_naive(k) = norm(sort(ev) - sort(iter_naive(:,k)), 1);
+    error_wilkinson(k) = norm(sort(ev) - sort(iter_wilkinson(:,k)), 1);
 end
 
 semilogy(1:kmax, error_none, "g-")
