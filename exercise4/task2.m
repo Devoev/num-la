@@ -1,5 +1,5 @@
 %% Exercise b)
-kmax = 100;
+kmax = 500;
 tol = 1e-10;
 N = 100;
 D = diag(1:N);
@@ -14,14 +14,9 @@ ev = eig(A);
 [~, iter_wilkinson] = qr_algorithm(A, 'wilkinson', kmax, tol, false);
 
 % Calculate errors
-error_none = zeros(kmax, 1);
-error_naive = zeros(kmax, 1);
-error_wilkinson = zeros(kmax, 1);
-for k = 1:kmax
-    error_none(k) = norm(sort(ev) - sort(iter_none(:,k)), 1);
-    error_naive(k) = norm(sort(ev) - sort(iter_naive(:,k)), 1);
-    error_wilkinson(k) = norm(sort(ev) - sort(iter_wilkinson(:,k)), 1);
-end
+error_none = vecnorm(sort(ev) - sort(iter_none), 1);
+error_naive = vecnorm(sort(ev) - sort(iter_naive), 1);
+error_wilkinson = vecnorm(sort(ev) - sort(iter_wilkinson), 1);
 
 semilogy(1:kmax, error_none, "g-")
 hold on
