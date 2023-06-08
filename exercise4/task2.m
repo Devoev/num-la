@@ -1,7 +1,7 @@
 %% Exercise b)
-kmax = 500;
+kmax = 2000;
 tol = 1e-10;
-N = 100;
+N = 500;
 D = diag(1:N);
 [Q,~] = qr(2*rand(N,N) - ones(N,N));
 A = Q*D*Q';
@@ -9,9 +9,9 @@ A = Q*D*Q';
 %A = wilkinson(N, 'single');
 
 ev = eig(A);
-[~, iter_none] = qr_algorithm(A, 'none', kmax, tol, false);
-[~, iter_naive] = qr_algorithm(A, 'naive', kmax, tol, false);
-[~, iter_wilkinson] = qr_algorithm(A, 'wilkinson', kmax, tol, false);
+[~, iter_none] = qr_algorithm(A, 'none', kmax, tol, true);
+[~, iter_naive] = qr_algorithm(A, 'naive', kmax, tol, true);
+[~, iter_wilkinson] = qr_algorithm(A, 'wilkinson', kmax, tol, true);
 
 % Calculate errors
 error_none = vecnorm(sort(ev) - sort(iter_none), 1);
