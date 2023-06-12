@@ -12,26 +12,19 @@ function [Q, R] = qr_givens(A, tol, istridiagonal)
     Q = eye(n);
     R = A;
 
-    if istridiagonal
-        for i = 2:n
-            j = i-1;
+    for i = 2:n
+        if istridiagonal
+            j_range = i-1;
+        else
+            j_range = 1:i-1;
+        end
+        for j = j_range
             if abs(R(i,j)) < tol
                 continue
             end
             G = givens(j, i, R(j,j), R(i,j), n);
             R = G*R;
             Q = Q*G';
-        end
-    else
-        for i = 1:n
-            for j = 1:i-1
-                if abs(R(i,j)) < tol
-                    continue
-                end
-                G = givens(j, i, R(j,j), R(i,j), n);
-                R = G*R;
-                Q = Q*G';
-            end
         end
     end
 end

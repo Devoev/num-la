@@ -9,6 +9,6 @@ A = Q*D*Q';
 
 tic
 for n = 1:nmax
-    qr_algorithm(A, 'none', kmax, tol, false);
+    qr_algorithm(A, 'none', kmax, tol, true);
 end
 toc

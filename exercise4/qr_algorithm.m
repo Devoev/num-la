@@ -17,10 +17,8 @@ function [ev, iter] = qr_algorithm(A, shift, kmax, tol, deflation)
     end
 
     % Transformation to hessenberg form
-    [n,~] = size(A);
     H = hess(A);
-%    H = spdiags(spdiags(H, -1:1), -1:1, n, n);
-%    H = full(H);
+    [n,~] = size(A);
     iter = zeros(n, kmax);
 
     % QR Iteration
@@ -73,8 +71,8 @@ function [ev, iter] = qr_algorithm(A, shift, kmax, tol, deflation)
 %                return
 %            end
 
-%        [Q, R]= qr_givens(H - s*eye(n), tol, deflation);
-        [Q, R]= qr(H - s*eye(n));
+        [Q, R]= qr_givens(H - s*eye(n), tol, deflation);
+%        [Q, R]= qr(H - s*eye(n));
         H = R*Q + s*eye(n);
         iter(:,k) = diag(H);
     end
