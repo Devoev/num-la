@@ -5,8 +5,7 @@ N = 500;
 D = diag(1:N);
 [Q,~] = qr(2*rand(N,N) - ones(N,N));
 A = Q*D*Q';
-%A = full(gallery('tridiag',N,-1,2,-1));
-%A = wilkinson(N, 'single');
+%A = wilkinson(N);
 
 ev = eig(A);
 [~, iter_none] = qr_algorithm(A, 'none', kmax, tol, true);
