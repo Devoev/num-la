@@ -1,10 +1,12 @@
-function [ev, iter] = qr_algorithm(A, shift, kmax, tol, deflation)
+function [ev, iter] = qr_algorithm(A, shift, kmax, tol, varargin)
 % QR_ALGORITHM Caluclates the eigenvalues of A using the QR algorithm.
 % Inputs:
 %   shift     - The shift technique. Use 'none', 'naive' or 'wilkinson'.
 %   kmax      - The maximum amount of iterations.
 %   tol       - Tolerance value.
-%   deflation - Whether to apply deflation (only works on real symmetric matrices).
+% Varargs
+%   deflation - Apply deflation (only works on real symmetric matrices).
+%   tridiag   - Transform A to hessenberg form (tridiagonal in the symmetric case).
 % Outputs:
 %   ev        - Array of approximated eigenvalues of A.
 %   iter      - The iteration of apprxoimated eigenvalues.
@@ -16,8 +18,17 @@ function [ev, iter] = qr_algorithm(A, shift, kmax, tol, deflation)
         return
     end
 
+    % Get options
+    option_deflate = any(strcmp(varargin,'deflation'));
+    option_tridiag = any(strcmp(varargin,'tridiag'));
+
     % Transformation to hessenberg form
-    H = hess(A);
+    if option_tridiag
+        H = hess(A);
+    else
+        H = A;
+    end
+
     [n,~] = size(A);
     iter = zeros(n, kmax);
 
@@ -36,10 +47,10 @@ function [ev, iter] = qr_algorithm(A, shift, kmax, tol, deflation)
         end
 
         % Deflation - test if tridiagonal element is close to zero
-        if deflation & abs(H(n, n-1)) < tol * min(abs(H(n-1, n-1)), abs(H(n,n)))
+        if option_deflate & abs(H(n, n-1)) < tol * min(abs(H(n-1, n-1)), abs(H(n,n)))
             D1 = H(1:n-1, 1:n-1);
             ev2 = H(n,n);
-            [ev1, iter1] = qr_algorithm(D1, shift, kmax-k+1, tol, deflation); % Calculate eigenvalues of upper block
+            [ev1, iter1] = qr_algorithm(D1, shift, kmax-k+1, tol, varargin{:}); % Calculate eigenvalues of upper block
 
             % Merge iterated eigenvalues
             iter(1:end-1, k:end) = iter1;
@@ -71,8 +82,8 @@ function [ev, iter] = qr_algorithm(A, shift, kmax, tol, deflation)
 %                return
 %            end
 
-        [Q, R]= qr_givens(H - s*eye(n), tol, deflation);
-%        [Q, R]= qr(H - s*eye(n));
+%        [Q, R]= qr_givens(H - s*eye(n), tol, option_tridiag);
+        [Q, R]= qr(H - s*eye(n));
         H = R*Q + s*eye(n);
         iter(:,k) = diag(H);
     end

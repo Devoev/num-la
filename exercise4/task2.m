@@ -8,9 +8,9 @@ A = Q*D*Q';
 %A = wilkinson(N);
 
 ev = eig(A);
-[~, iter_none] = qr_algorithm(A, 'none', kmax, tol, true);
-[~, iter_naive] = qr_algorithm(A, 'naive', kmax, tol, true);
-[~, iter_wilkinson] = qr_algorithm(A, 'wilkinson', kmax, tol, true);
+[~, iter_none] = qr_algorithm(A, 'none', kmax, tol, 'tridiag');
+[~, iter_naive] = qr_algorithm(A, 'naive', kmax, tol, 'deflation', 'tridiag');
+[~, iter_wilkinson] = qr_algorithm(A, 'wilkinson', kmax, tol, 'deflation', 'tridiag');
 
 % Calculate errors
 error_none = vecnorm(sort(ev) - sort(iter_none), 1);
