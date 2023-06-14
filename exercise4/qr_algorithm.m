@@ -58,29 +58,6 @@ function [ev, iter] = qr_algorithm(A, shift, kmax, tol, varargin)
             ev = [ev1; ev2];
             return
         end
-%       DEFLATION FOR VARIABLE INDEX
-%            lower_diag = diag(H, -1);
-%            idx = abs(lower_diag) < tol;
-%            idx = nonzeros(double(idx)' .* (1:n-1)); % Find all zero indices on lower diagonal
-%            if ~isempty(idx)
-%                i = idx(ceil(end/2)); % Get most centered zero index
-%                if i == 1 | i == n
-%                    break
-%                end
-%                disp("Calling deflation on index " + i)
-%                D1 = H(1:i, 1:i);
-%                D2 = H(i+1:n, i+1:n);
-%                [ev1, iter1] = qr_algorithm(D1, shift, kmax-k+1, tol, deflation);
-%                [ev2, iter2] = qr_algorithm(D2, shift, kmax-k+1, tol, deflation);
-%
-%                [a,l] = size(iter1);
-%                iter2 = repmat(iter2, 1, l);
-%                iter(1:a, k:end) = iter1;
-%                iter(a+1:end, k:end) = iter2;
-%
-%                ev = [ev1; ev2];
-%                return
-%            end
 
 %        [Q, R]= qr_givens(H - s*eye(n), tol, option_tridiag);
         [Q, R]= qr(H - s*eye(n));
