@@ -60,7 +60,6 @@ function [ev, iter] = qr_algorithm(A, shift, kmax, tol, varargin)
         end
 
         [Q, R]= qr_givens(H - s*eye(n), tol, option_tridiag);
-%        [Q, R]= qr(H - s*eye(n)); % Using internal Matalb QR decomposition, because qr_givens takes way too long for large matrices
         H = R*Q + s*eye(n);
         iter(:,k) = diag(H);
     end
