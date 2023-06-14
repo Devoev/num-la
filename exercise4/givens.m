@@ -8,9 +8,7 @@ function [G] = givens(p, q, xp, xq, n)
 %   G      - The assembled (sparse) givens matrix.
 
     % Determine r, c and s
-    r = sqrt(xp^2 + xq^2);
-    c = xp/r;
-    s = xq/r;
+    [c, s, r] = givens_coeffs(xp, xq);
 
     % Assamble sparse matrix
     i = [p, p, q, q];

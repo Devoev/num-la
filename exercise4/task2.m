@@ -1,7 +1,7 @@
 %% Exercise b)
 kmax = 2000;
 tol = 1e-10;
-N = 500;
+N = 50;
 D = diag(1:N);
 [Q,~] = qr(2*rand(N,N) - ones(N,N));
 A = Q*D*Q';
