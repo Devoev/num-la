@@ -22,9 +22,8 @@ function [Q, R] = qr_givens(A, tol, istridiagonal)
             if abs(R(i,j)) < tol
                 continue
             end
-            G = givens(j, i, R(j,j), R(i,j), n);
-            R = G*R;
-            Q = Q*G';
+            % Apply givens rotations indirectly
+            [Q, R] = givens_apply(Q, R, j, i);
         end
     end
 end
