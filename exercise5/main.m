@@ -1,11 +1,11 @@
 % Devin Balian 2791430
 
 % Parse flower.gif
-[X,map]=imread("cat-space.gif");
+[X,map]=imread("flower.gif");
 A=im2double(X,"indexed");
 
 % Calculate SVD and low rank apprximation.
-t = 220;
+t = 300;
 [U,S,V] = svd(A);
 At = low_rank(U,S,V,t);
 
