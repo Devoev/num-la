@@ -1,10 +1,11 @@
-function [At] = low_rank(U,S,V,t)
+function [At,Ut,St,Vt] = low_rank(U,S,V,t)
 % LOW_RANK Calculates a low rank approximation of a given SVD.
 % Inputs:
-%   U,S,V   - The SVD matrices.
-%   t       - The rank of the approximation. Must be lower or equal to the rank of A.
+%   U,S,V      - The SVD matrices.
+%   t          - The rank of the approximation. Must be lower or equal to the rank of A.
 % Outputs:
-%   At      - The low rank approximation.
+%   At         - The low rank approximation.
+%   Ut,St,Vt   - The low rank SVD matrices.
 
     [n,m] = size(S);
     if t > min(n, m)
