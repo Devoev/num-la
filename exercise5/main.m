@@ -26,7 +26,7 @@ ylabel('Singular value $\sigma_j$', 'Interpreter', 'Latex')
 legend("Singular values", "Low rank cut-off at " + t)
 
 % Calculate storage (only nonzero elements must be stored when using sparse matrices)
-storage_full = nnz(S) + nnz(U) + nnz(V)
-storage_low_rank = nnz(St) + nnz(Ut) + nnz(Vt)
+storage_full = nnz(S) + nnz(U) + nnz(V);
+storage_low_rank = nnz(St) + nnz(Ut) + nnz(Vt);
 storage_saved_rel = (storage_full - storage_low_rank) / storage_full;
 disp("Saved storage by low rank approximation: " + storage_saved_rel + "%")
