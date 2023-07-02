@@ -6,12 +6,12 @@ function [V,H] = arnoldi(A,r0,m,tol)
 %   m   - Dimension of the Krylov space.
 %   tol - Tolerance.
 % Outputs:
-%   V   - Orthonormal basis of size (n,m).
+%   V   - Orthonormal basis of size (n,m+1).
 %   H   - Hessenberg matrix of size (m+1,m).
 
     % Init matrices
     [n,~] = size(A);
-    V = zeros(n,m);
+    V = zeros(n,m+1);
     V(:,1) = r0 / norm(r0);
     H = zeros(m+1,m);
 

@@ -4,9 +4,11 @@ load -ascii 'bcsstm10.mtx'
 B=nos7; B=sparse(B(2:end,1),B(2:end,2),B(2:end,3),B(1,1),B(1,2));
 
 [n,~] = size(A);
-m = 100;
-tol = 1e-10;
+m = 10;
+tol = 1e-8;
 r0 = ones(n,1);
 [V,H] = arnoldi(A,r0,m,tol);
 
 disp("Element h(m+1,m)=" + H(m+1,m))
+err = norm(A*V(:,1:m) - V*H)
+assert(err < tol)
