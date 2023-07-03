@@ -36,3 +36,6 @@ semilogy(err_k)
 title("FOM convergence study")
 xlabel('Iteration number $k$', 'Interpreter', 'Latex')
 ylabel('Relative $L^2$ error $\frac{||x^{(k)} - x||_2}{||x||_2}$', 'Interpreter', 'Latex')
+yline(tol, "r--")
+legend("Relative error", "Error tolerance")
+grid on
