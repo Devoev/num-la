@@ -27,7 +27,7 @@ kmax = 500;
 b = ones(n,1);
 [x,iter] = fom(B,b,kmax,tol);
 
-err = norm(B*x - b);
+err = norm(B*x - b)/norm(b);
 assert(err < tol, "FOM doesn't converge for given matrix B and given tolerance=" + tol + "! Error=" + err)
 
 x_exact = B\b;

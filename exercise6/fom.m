@@ -24,8 +24,8 @@ function [x,iter] = fom(A,b,kmax,tol)
         iter(:,k) = Vk*y;
         x = iter(:,k);
 
-        % Termination criteria
-        if norm(A*x - b) < tol & norm(x - iter(:,k-1)) < tol
+        % Termination criteria: relres error and iteration diff
+        if norm(A*x - b)/norm(b) < tol & norm(x - iter(:,k-1)) < tol
             iter(:,k:kmax) = repmat(x,1,kmax-k+1);
             disp("FOM converged after k=" + k + " iterations.")
             return
