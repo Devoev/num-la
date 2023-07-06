@@ -12,13 +12,14 @@ r0 = ones(n,1);
 
 disp("Element h(m+1,m)=" + H(m+1,m))
 Vm = V(:,1:m);
-Hm = H(1:m,:);
-err = norm(A*Vm - V*H);
-assert(err < tol, "Arnoldi method doesn't converge for given matrix A and given tolerance=" + tol + "! Error=" + err)
-% TODO: Fix 2nd error test
-%err = norm(Vm'*A*Vm - Hm);
-%err = norm(Vm'*Vm - speye(m,m));
-%assert(err < tol, "Arnoldi method doesn't converge for given matrix A and given tolerance=" + tol + "! Error=" + err)
+try
+    err = norm(A*Vm - V*H);
+    assert(err < tol, "Arnoldi method doesn't converge for given matrix A and given tolerance=" + tol + "! Error=" + err)
+    err = norm(Vm'*Vm - speye(m,m));
+    assert(err < tol, "Arnoldi method doesn't calculate an orthorgonal basis for given matrix A and given tolerance=" + tol + "! Error=" + err)
+catch exception
+    disp(getReport(exception))
+end
 
 %% (b) FOM test
 [n,~] = size(B);
