@@ -16,7 +16,7 @@ function [x,k,resvec] = cg(A,b,P,x0,tol,maxit)
     resvec = zeros(1,maxit);
     r = b - A*x0;
     x = x0;
-    z = P\r; % TODO: Iterative solver?
+    z = P\r;
 
     for k=1:maxit
         % Calculate new value for rho
@@ -39,7 +39,7 @@ function [x,k,resvec] = cg(A,b,P,x0,tol,maxit)
         alpha = rho / dot(p,v);
         x = x + alpha*p;
         r = r - alpha*v;
-        z = P\r; % TODO: Iterative solver?
+        z = P\r;
 
         % Convergence test
         if rho < tol
