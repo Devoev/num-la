@@ -36,7 +36,7 @@ function [x,k,resvec] = cg(A,b,x0,tol,maxit)
         r = r - alpha*v;
 
         % Convergence test
-        if rho < tol
+        if resvec(k) < tol
             break
         end
     end

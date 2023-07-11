@@ -8,7 +8,7 @@ b1 = ones(100,1);
 b2 = ones(1000,1);
 x01 = zeros(100,1);
 x02 = zeros(1000,1);
-tol = 1e-16;
+tol = 1e-10;
 maxit = 5000;
 
 [~,k1,resvec1] = cg(A1,b1,x01,tol,maxit);
@@ -31,7 +31,8 @@ loglog(1:k1p, resvec1p)
 title('CG convergence study for $(n,m) = (100,10)$', 'Interpreter', 'Latex')
 xlabel('Iteration number $k$', 'Interpreter', 'Latex')
 ylabel('Absolute $L^2$ error $||\mathbf{Ax}^{(k)} - \mathbf{b}||_2$', 'Interpreter', 'Latex')
-legend("Absolute residual error")
+yline(tol, "r--")
+legend("Absolute residual error", "Error tolerance", 'Location', 'west')
 grid on
 
 figure
@@ -41,5 +42,6 @@ loglog(1:k2p, resvec2p)
 title('CG convergence study for $(n,m) = (1000,100)$', 'Interpreter', 'Latex')
 xlabel('Iteration number $k$', 'Interpreter', 'Latex')
 ylabel('Absolute $L^2$ error $||\mathbf{Ax}^{(k)} - \mathbf{b}||_2$', 'Interpreter', 'Latex')
-legend("Absolute residual error")
+yline(tol, "r--")
+legend("Absolute residual error", "Error tolerance", 'Location', 'west')
 grid on

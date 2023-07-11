@@ -42,7 +42,7 @@ function [x,k,resvec] = cg(A,b,P,x0,tol,maxit)
         z = P\r;
 
         % Convergence test
-        if rho < tol
+        if resvec(k) < tol
             break
         end
     end
