@@ -12,13 +12,23 @@ b2 = ones(1000,1);
 x01 = zeros(100,1);
 x02 = zeros(1000,1);
 tol = 1e-10;
-maxit=2000;
+maxit = 5000;
 
 [x1,k1,resvec1] = cg(A1,b1,x01,tol,maxit);
 [x2,k2,resvec2] = cg(A2,b2,x02,tol,maxit);
 
 %% c)
-size(1:k1)
-size(resvec1)
 loglog(1:k1, resvec1)
+title('CG convergence study for $(n,m) = (1000,100)$', 'Interpreter', 'Latex')
+xlabel('Iteration number $k$', 'Interpreter', 'Latex')
+ylabel('Absolute $L^2$ error $||\mathbf{Ax}^{(k)} - \mathbf{b}||_2$', 'Interpreter', 'Latex')
+legend("Absolute residual error")
+grid on
+
+figure
 loglog(1:k2, resvec2)
+title('CG convergence study for $(n,m) = (100,10)$', 'Interpreter', 'Latex')
+xlabel('Iteration number $k$', 'Interpreter', 'Latex')
+ylabel('Absolute $L^2$ error $||\mathbf{Ax}^{(k)} - \mathbf{b}||_2$', 'Interpreter', 'Latex')
+legend("Absolute residual error")
+grid on
