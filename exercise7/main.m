@@ -47,7 +47,7 @@ title('CG convergence study for $(n,m) = (100,10)$', 'Interpreter', 'Latex')
 xlabel('Iteration number $k$', 'Interpreter', 'Latex')
 ylabel('Absolute $L^2$ error $||\mathbf{Ax}^{(k)} - \mathbf{b}||_2$', 'Interpreter', 'Latex')
 yline(tol, "r--")
-legend("Absolute residual error", "Error tolerance", 'Location', 'west')
+legend("CG", "PCG", "Error tolerance", 'Location', 'west')
 grid on
 
 figure
@@ -58,5 +58,5 @@ title('CG convergence study for $(n,m) = (1000,100)$', 'Interpreter', 'Latex')
 xlabel('Iteration number $k$', 'Interpreter', 'Latex')
 ylabel('Absolute $L^2$ error $||\mathbf{Ax}^{(k)} - \mathbf{b}||_2$', 'Interpreter', 'Latex')
 yline(tol, "r--")
-legend("Absolute residual error", "Error tolerance", 'Location', 'west')
+legend("CG", "PCG", "Error tolerance", 'Location', 'west')
 grid on
